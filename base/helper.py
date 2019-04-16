@@ -8,7 +8,7 @@ import os
 import hashlib
 
 int_type = ['int', 'int32', 'uint32', 'int64']
-http_code = {'get': 200, 'post': 201, 'put': 200, 'delete': 204}
+http_code = {'get': baseData.status_ok, 'post': baseData.status_created, 'put': baseData.status_ok, 'delete': baseData.status_no_content}
 method_exec_order = ['post_resource', 'get_resource', 'get_collection', 'delete_resource']
 namespace_check_interval = 1
 not_regular_doc = ['errorcode.json', 'user.json']
