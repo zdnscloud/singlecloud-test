@@ -8,6 +8,7 @@ import os
 import hashlib
 
 int_type = ['int', 'int32', 'uint32', 'int64']
+custom_type = ['advancedOptions', 'exposedMetric']
 http_code = {'get': baseData.status_ok, 'post': baseData.status_created, 'put': baseData.status_ok, 'delete': baseData.status_no_content}
 method_exec_order = ['post_resource', 'get_resource', 'get_collection', 'delete_resource']
 namespace_check_interval = 1
@@ -117,7 +118,7 @@ def generate_resource_field(resource_type, resource_field, sub_resource, field_k
         if resource_field['keyType'] == 'resourceName':
             return {generate_resource_field(resource_type, sub_resource['resourceName'], sub_resource, 'resourceName'): str(random.randint(1, 2))}
         return {toolkit.gen_random_str(): toolkit.gen_random_str()}
-    if resource_field['type'] == 'advancedOptions':
+    if resource_field['type'] in custom_type:
         sub_fields = sub_resource[resource_field['type']]
         sub_payload = {}
         for field in sub_fields:
@@ -137,7 +138,7 @@ def check_field_basic_type(field_value, field_type, field_key):
         field_type = list
     if field_type == 'map':
         field_type = dict
-    if field_type == 'enum' or field_type == 'advancedOptions':
+    if field_type == 'enum' or field_type in custom_type:
         return
     if not isinstance(field_value, field_type):
         # raise Exception(TypeError)
@@ -162,7 +163,7 @@ def check_resource_field(resource_type, resource_field, response_field, sub_reso
     if resource_field['type'] == 'map':
         for field in response_field:
             check_field_basic_type(field, 'string', field)
-    if resource_field['type'] == 'advancedOptions':
+    if resource_field['type'] in custom_type:
         sub_fields = sub_resource[resource_field['type']]
         for field in sub_fields:
             check_resource_field(resource_type, sub_fields[field], response_field[field], sub_resource, field)
