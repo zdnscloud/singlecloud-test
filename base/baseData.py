@@ -2,7 +2,7 @@ from base import system
 
 test_path = system.TEST_PATH
 
-resource_path = '/Users/tanxu/github/singlecloud/docs/resources'
+resource_path = '/Users/tanxu/tmp/singlecloud/docs/resources'
 base_url = 'http://sc.testns.10.0.0.32.xip.io/apis/zcloud.cn/v1'
 
 delimiter = '/'
