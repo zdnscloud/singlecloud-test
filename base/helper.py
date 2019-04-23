@@ -12,7 +12,7 @@ custom_type = ['advancedOptions', 'exposedMetric']
 http_code = {'get': baseData.status_ok, 'post': baseData.status_created, 'put': baseData.status_ok, 'delete': baseData.status_no_content}
 method_exec_order = ['post_resource', 'get_resource', 'get_collection', 'delete_resource']
 namespace_check_interval = 1
-not_regular_doc = ['errorcode.json', 'user.json']
+not_regular_doc = ['errorcode.json', 'user.json', 'innerservice.json', 'outerservice.json']
 
 
 def get_all_resource():
@@ -105,6 +105,8 @@ def generate_resource_field(resource_type, resource_field, sub_resource, field_k
     if resource_field['type'] in int_type:
         return random.randint(1, 2)
     if resource_field['type'] == 'enum':
+        if field_key == 'protocol':
+            return 'tcp'
         return random.choice(resource_field['validValues'])
     if resource_field['type'] == 'array':
         if resource_field['elemType'] == 'string':
