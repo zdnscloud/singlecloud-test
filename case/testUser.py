@@ -6,9 +6,13 @@ from case import dataUser as testData
 
 
 class TestUser(baseCase.BaseCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        helper.delete_namespace_without_warning()
+        helper.create_namespace()
 
     def setUp(self):
-        super().setUp()
         try:
             helper.get_response('delete', testData.user_url)
         except:

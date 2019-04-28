@@ -8,8 +8,6 @@ class BaseCase(baseCase.BaseCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        helper.delete_namespace_without_warning()
-        helper.create_namespace()
 
     @classmethod
     def tearDownClass(cls):
@@ -17,6 +15,8 @@ class BaseCase(baseCase.BaseCase):
 
     def setUp(self):
         super().setUp()
+        helper.delete_namespace_without_warning()
+        helper.create_namespace()
 
     def tearDown(self):
         super().tearDown()
