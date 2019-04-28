@@ -6,6 +6,7 @@ from case import dataUser as testData
 
 
 class TestUser(baseCase.BaseCase):
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

@@ -5,6 +5,7 @@ from case import dataService as testData
 
 
 class TestService(baseCase.BaseCase):
+
     def test_inner_service(self):
         helper.get_response('post', testData.service_url, testData.service_body)
         inner_service = helper.get_response('get', testData.inner_service_url)
