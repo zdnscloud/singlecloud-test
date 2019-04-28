@@ -101,3 +101,42 @@ class TestUser(baseCase.BaseCase):
         self.assertEqual(baseData.status_ok, deployments_test.status)
         deployments_extra = helper.get_response('get', testData.deployment_url_extra, token=token_test)
         self.assertEqual(baseData.status_ok, deployments_extra.status)
+
+    def test_admin_list_user(self):
+        self.test_user_create()
+        user_list = helper.get_response('get', testData.user_collection_url)
+        self.assertEqual(baseData.status_ok, user_list.status)
+        self.assertEqual(len(testData.admin_and_normal_user), len(user_list.response['data']))
+
+    def test_normal_user_list_user(self):
+        self.test_user_create()
+        token_test = helper.get_token_by_login(testData.user, testData.password)
+        user_list = helper.get_response('get', testData.user_collection_url, token=token_test)
+        self.assertEqual(baseData.status_ok, user_list.status)
+        self.assertEqual(len(testData.normal_user), len(user_list.response['data']))
+
+    def test_admin_list_cluster(self):
+        self.test_user_create()
+        cluster_list = helper.get_response('get', testData.cluster_collection_url)
+        self.assertEqual(baseData.status_ok, cluster_list.status)
+        self.assertEqual(len(testData.all_cluster), len(cluster_list.response['data']))
+
+    def test_normal_user_list_cluster(self):
+        self.test_user_create()
+        token_test = helper.get_token_by_login(testData.user, testData.password)
+        cluster_list = helper.get_response('get', testData.cluster_collection_url, token=token_test)
+        self.assertEqual(baseData.status_ok, cluster_list.status)
+        self.assertEqual(len(testData.extra_cluster), len(cluster_list.response['data']))
+
+    def test_admin_list_namespace(self):
+        self.test_user_create()
+        namespace_list = helper.get_response('get', testData.namespace_collection_url)
+        self.assertEqual(baseData.status_ok, namespace_list.status)
+        self.assertGreater(len(namespace_list.response['data']), testData.namespace_least_count)
+
+    def test_normal_user_list_namespace(self):
+        self.test_user_create()
+        token_test = helper.get_token_by_login(testData.user, testData.password)
+        namespace_list = helper.get_response('get', testData.namespace_collection_url, token=token_test)
+        self.assertEqual(baseData.status_ok, namespace_list.status)
+        self.assertLess(len(namespace_list.response['data']), testData.namespace_least_count)

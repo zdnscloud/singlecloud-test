@@ -3,11 +3,12 @@ from base import system
 test_path = system.TEST_PATH
 
 resource_path = '/Users/tanxu/tmp/singlecloud/docs/resources'
-base_url = 'http://sc.testns.10.0.0.32.xip.io/apis/zcloud.cn/v1'
+base_url = 'http://10.0.0.33:30000/apis/zcloud.cn/v1'
 
 delimiter = '/'
 base_resource = 'cluster'
 cluster = 'chengdu'
+extra_cluster = 'vagrant'
 test_namespace = 'namespace-test'
 node_master = 'master'
 resource_name_suffix = '-test'

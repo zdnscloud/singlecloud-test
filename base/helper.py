@@ -47,7 +47,7 @@ def get_collection_name(resource_type):
 
 def get_resource_relation(resource_type):
     resource_relation = [resource_type]
-    if resource_type == baseData.base_resource:
+    if resource_type in [baseData.base_resource, 'user']:
         return resource_relation
     while True:
         parent = get_resource_parent(resource_type)

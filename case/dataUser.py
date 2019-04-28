@@ -51,3 +51,13 @@ create_user_with_all_namespace = {
     "password": helper.encrypt_password(password),
     "projects": [{"cluster": baseData.cluster, "namespace": '_all'}]
 }
+
+cluster_collection_url = helper.get_collection_url('cluster')
+
+admin_and_normal_user = [baseData.admin_user, user]
+normal_user = [user]
+
+all_cluster = [baseData.cluster, baseData.extra_cluster]
+extra_cluster = [baseData.extra_cluster]
+
+namespace_least_count = 2
