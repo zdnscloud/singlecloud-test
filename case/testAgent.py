@@ -1,10 +1,10 @@
 from base import helper
 from base import baseData
 from case import baseCase
-from case import dataService as testData
+from case import dataAgent as testData
 
 
-class TestService(baseCase.BaseCase):
+class TestAgent(baseCase.BaseCase):
 
     def test_inner_service(self):
         helper.get_response('post', testData.service_url, testData.service_body)

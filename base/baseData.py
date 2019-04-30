@@ -4,6 +4,7 @@ test_path = system.TEST_PATH
 
 resource_path = '/Users/tanxu/tmp/singlecloud/docs/resources'
 base_url = 'http://10.0.0.33:30000/apis/zcloud.cn/v1'
+agent_base_url = 'http://10.0.0.33:30001/apis/agent.zcloud.cn/v1'
 
 delimiter = '/'
 base_resource = 'cluster'
