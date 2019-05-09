@@ -8,7 +8,7 @@ import os
 import hashlib
 
 int_type = ['int', 'int32', 'uint32', 'int64']
-custom_type = ['advancedOptions', 'exposedMetric']
+custom_type = ['advancedOptions', 'exposedMetric', 'volumeClaimTemplate']
 http_code = {'get': baseData.status_ok, 'post': baseData.status_created, 'put': baseData.status_ok, 'delete': baseData.status_no_content}
 method_exec_order = ['post_resource', 'get_resource', 'get_collection', 'delete_resource']
 namespace_check_interval = 1
@@ -99,6 +99,8 @@ def generate_resource_field(resource_type, resource_field, sub_resource, field_k
             field_value = resource_name(resource_type)
         if 'path' in field_key.lower():
             field_value = baseData.delimiter + field_value + toolkit.gen_random_str()
+        if field_key == 'storageSize':
+            field_value = '1Gi'
         if field_key == 'schedule':
             field_value = '0 0 * * *'
         return field_value
