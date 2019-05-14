@@ -1,7 +1,7 @@
 from base import helper
 from base import baseData
 
-not_namespaced = [baseData.base_resource, 'namespace', 'node']
+not_namespaced = [baseData.base_resource, 'namespace', 'node', 'storageclass']
 resource_list = helper.get_all_resource()
 
 helper.delete_namespace_without_warning()

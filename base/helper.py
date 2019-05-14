@@ -38,7 +38,7 @@ def get_resource_element(resource_type, element, resource_self=False):
 
 
 def get_resource_parent(resource_type):
-    return get_resource_element(resource_type, 'parentResource')
+    return get_resource_element(resource_type, 'parentResources')[0]
 
 
 def get_collection_name(resource_type):
@@ -81,6 +81,8 @@ def get_collection_url(resource_type):
 
 
 def has_resource_method(resource_type, method):
+    if resource_type == 'storageclass':
+        return False
     methods = get_resource_element(resource_type, 'resourceMethods')
     return method.upper() in methods
 
@@ -236,16 +238,20 @@ def check_all_method(resource_type):
     collection_url = get_collection_url(resource_type)
     for method_exec in method_exec_order:
         if method_exec == 'post_resource' and has_collection_method(resource_type, 'post'):
+            if resource_type == 'cluster':
+                continue
             check_resource(resource_type, 'post', collection_url)
         method_and_resource = method_exec.split('_')
         method = method_and_resource[0]
         resource = method_and_resource[1]
         if resource == 'resource' and has_resource_method(resource_type, method):
+            if resource_type == 'cluster' and method.upper() == 'DELETE':
+                continue
             if resource_type == 'namespace' and method.upper() == 'DELETE':
                 delete_namespace()
-                return
+                continue
             if resource_type == 'pod' and method.upper() == 'GET':
-                return
+                continue
             check_resource(resource_type, method, resource_url)
         if resource == 'collection' and has_collection_method(resource_type, method):
             check_resource(resource_type, method, collection_url, is_collection=True)
@@ -255,6 +261,8 @@ def post_parent(resource_type):
     relations = get_resource_relation(resource_type)
     relations.pop(-1)
     for relation in relations:
+        if relation == 'cluster':
+            continue
         if has_collection_method(relation, 'post'):
             check_resource(relation, 'post', get_collection_url(relation))
 
